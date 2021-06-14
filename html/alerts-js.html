@@ -1,0 +1,70 @@
+<script>
+
+  /**
+   * Show a bootstrap alert in a colored bar at the top of the page (or parent element).
+   * options: 
+   *    message: 
+   *    parent: css selector for the parent element of the alert.  Defaults to 'body'
+   *    type: Type of alert.  Determines the color scheme.  Defaults to 'info.'  
+   *              Can be 'info', 'success', 'danger' ('error'), 'warning', 'light','dark','primary','secondary'
+   *    autoClose: boolean.  Defaults to false.
+   *    timeout: Milliseconds timeout before auto close (if set).  Default: 10000 (10 seconds)
+   */
+   function showAlert(options) {  
+    options = options || {}
+    if (!options.message) return;
+
+    // Close any previous alert:
+    $('#cactus-alert').remove()
+    
+    // In case we forget that there isn't an error class. 
+    if (options.type == 'error') options.type = 'danger'
+    
+    // Default to info
+    var alertClass = 'alert-' + (options.type || 'info')
+    
+    var closeButton = '' +
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+      '<span aria-hidden="true">&times;</span>' + 
+      '</button>';
+
+    var alertDiv = $('<div>')
+      .attr('id', 'cactus-alert')
+      .attr('class', 'alert alert-dismissible fade show')
+      .addClass(alertClass)
+      .attr('role', 'alert')
+      .text(options.message)
+      .append(closeButton);
+
+    // This usually follows a server-side call, so hide the loading sign.
+    hideLoadingSign()
+    $(options.parent || 'body').prepend(alertDiv);
+    $('#cactus-alert').get(0).scrollIntoView();
+
+    // Auto close after some seconds
+    if (options.autoClose === true) {
+      setTimeout(
+        function() {alertDiv.alert('close');}, 
+        options.timeout || 10000
+      );
+    }
+  }
+
+  /**
+   * Handle errors returned from server-side script.
+   */
+  function somethingWentWrong(err) {
+    // This usually follows a server-side call, so hide the loading sign.
+    hideLoadingSign()
+    showAlert({
+      message: "Something went wrong.  Here's the error message we got:\n" + err.message,
+      type: 'error'
+    })
+    $('#submit').removeAttr('disabled')
+  }
+
+  function clearAlerts() {
+    $('#cactus-alert').remove()
+  }
+
+</script>

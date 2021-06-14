@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_blank">
+
+    <title>Challenger Reports</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <?!= include('html/css') ?>
+    
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <div class="container">
+
+          <div class="row">
+            <div class="col">
+                <div class="card shadow-sm my-3">
+                  <div id="pageContent" class="card-body">
+
+                    <div id="reportsContent">
+                      <div  class="row">
+                        <div class="col d-flex flex-column align-items-center">
+                          <h4>Challenge Reports</h4>
+                          <p id="reportStatus">We're loading your report...</p>
+                        </div>
+                      </div> 
+                      <div  class="row">
+                        <div id="downloadContainer" class="col d-flex flex-column align-items-center">
+                          
+                        </div>
+                      </div> 
+                      
+                    </div>
+
+
+                  </div>
+                </div>
+
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <?!= include('html/loading-sign-js') ?>
+    <?!= include('html/alerts-js') ?>
+    <?!= include('html/js', context) ?>
+  </body>
+</html>
+
+
+
+

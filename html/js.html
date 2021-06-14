@@ -1,0 +1,48 @@
+
+<script>
+  // Global variables
+  var context = JSON.parse("<?= JSON.stringify(context) ?>")
+
+  // Click handlers and initialization
+  $(document).ready(function(){
+    
+    // Get report
+    console.log("User id is %s", context.userId)
+    showLoadingSign();
+    google.script.run
+      .withFailureHandler(somethingWentWrong)
+      .withSuccessHandler(addFileLink)
+      .generateChallengeReport("<?= context.clientRow ?>")
+  })
+
+
+  function addFileLink(fileData) {
+
+    // If no data returned, don't udpate anything
+    if (fileData.data) {
+      // Set the link to download the file
+      var dataString = "data:" + fileData.mimeType + ";base64," + fileData.data
+      $('#downloadContainer').append(
+        $('<a>').attr({
+          'href': dataString,
+          'download': fileData.filename,
+          'class': 'report-link'
+        }).text(fileData.filename)
+        // Supposedly this works but I get "Requests to the server have been blocked by an extension."
+        // $('<iframe>').attr({
+        //   'src': dataString
+        // }).css({
+        //   'height': '1100px',
+        //   'width': '850px'
+        // })
+      )
+    }
+
+    $('#reportStatus').text("Click the link to view the file")
+
+    hideLoadingSign();
+  }
+
+
+
+</script>
